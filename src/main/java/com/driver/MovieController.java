@@ -12,7 +12,6 @@ import java.util.List;
 
 
 @RestController
-//@RequestMapping("movies")
 public class MovieController {
 
     @Autowired
@@ -66,8 +65,9 @@ public class MovieController {
         return new ResponseEntity<>("Success", HttpStatus.CREATED);
     }
 
-//    @GetMapping("/movies/get-movies-by-director-name/{director}")
-//    public ResponseEntity<List<String>> getMoviesByDirectorName(@PathVariable String directorName){
-//        movieService.getMovies
-//    }
+    @GetMapping("/movies/get-movies-by-director-name/{director}")
+    public ResponseEntity<List<String>> getMoviesByDirectorName(@PathVariable String directorName){
+        List<String> movies = movieService.getMoviesByDirectorName(directorName);
+        return new ResponseEntity<List<String>>(movies, HttpStatus.CREATED);
+    }
 }

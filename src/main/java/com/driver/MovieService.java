@@ -60,11 +60,17 @@ public class MovieService {
     }
 
     public void addMovieDirectorPair(String movieName, String directorName) {
-        HashMap<Director,Movie> pairList = movieRepository.getDirectorMoviePair();
+        HashMap<Director, List<Movie>> pairList = movieRepository.getDirectorMoviePair();
         List<Director> directorList = movieRepository.getDirectorObjects();
         List<Movie> moviesList = movieRepository.getMovieObjects();
         Director director=getDirectorByName(directorName);
         Movie movie=getMovieByName(movieName);
-        pairList.put(director,movie);
+        pairList.get(director).add(movie);
+    }
+
+    public List<String> getMoviesByDirectorName(String directorName) {
+        HashMap<Director,List<Movie>> pairList = movieRepository.getDirectorMoviePair();
+        Director director = getDirectorByName(directorName);
+        return pairList.get(director).stream().map(Movie::getName).collect(Collectors.toList());
     }
 }

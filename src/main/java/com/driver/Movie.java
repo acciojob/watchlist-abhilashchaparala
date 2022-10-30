@@ -4,7 +4,7 @@ public class Movie {
     private String name;
     private double imdbRating;
 
-    int durationInMinutes;
+    private int durationInMinutes;
 
     public Movie(){
     }
@@ -33,6 +33,4 @@ public class Movie {
     public void setDurationInMinutes(int durationInMinutes){
         this.durationInMinutes = durationInMinutes;
     }
-
-
 }
