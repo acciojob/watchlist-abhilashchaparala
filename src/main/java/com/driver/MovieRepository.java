@@ -9,6 +9,10 @@ import java.util.List;
 @Component
 public class MovieRepository {
 
+    public HashMap<Director, Movie> getDirectorMoviePair() {
+        return directorMoviePair;
+    }
+
     private HashMap<Director,Movie> directorMoviePair = new HashMap<>();
     private List<Director> directorList = new ArrayList<>();
     private List<Movie> movieList = new ArrayList<>();

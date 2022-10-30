@@ -4,10 +4,7 @@ import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,5 +57,14 @@ public class MovieService {
 
     public void deleteAllDirectors(){
         movieRepository.setDirectorList(Collections.emptyList());
+    }
+
+    public void addMovieDirectorPair(String movieName, String directorName) {
+        HashMap<Director,Movie> pairList = movieRepository.getDirectorMoviePair();
+        List<Director> directorList = movieRepository.getDirectorObjects();
+        List<Movie> moviesList = movieRepository.getMovieObjects();
+        Director director=getDirectorByName(directorName);
+        Movie movie=getMovieByName(movieName);
+        pairList.put(director,movie);
     }
 }
