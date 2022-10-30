@@ -8,7 +8,7 @@ public class Movie {
 
 
 
-    public Movie(String name, double imdbRating, int durationInMinutes){
+    public Movie(String name, int durationInMinutes, double imdbRating){
         this.name = name;
         this.imdbRating = imdbRating;
         this.durationInMinutes = durationInMinutes;
