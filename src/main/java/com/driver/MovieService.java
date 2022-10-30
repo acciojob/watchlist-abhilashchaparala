@@ -1,10 +1,8 @@
 package com.driver;
 
-import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -12,6 +10,7 @@ import java.util.stream.Collectors;
 public class MovieService {
     @Autowired
     MovieRepository movieRepository;
+
 
     public void addMovie(Movie movie) {
         movieRepository.addMovie(movie);
@@ -62,20 +61,18 @@ public class MovieService {
 
     public void addMovieDirectorPair(String movieName, String directorName) {
         HashMap<Director, List<Movie>> pairList = movieRepository.getDirectorMoviePair();
-        List<Director> directorList = movieRepository.getDirectorObjects();
-        List<Movie> moviesList = movieRepository.getMovieObjects();
         Director director=getDirectorByName(directorName);
         Movie movie=getMovieByName(movieName);
         if(!pairList.containsKey(director)){
             pairList.put(director,new ArrayList<>());
         }
         pairList.get(director).add(movie);
+
     }
 
     public List<String> getMoviesByDirectorName(String directorName) {
         HashMap<Director,List<Movie>> pairList = movieRepository.getDirectorMoviePair();
         Director director = getDirectorByName(directorName);
-        System.out.println(pairList);
         return pairList.get(director).stream().map(Movie::getName).collect(Collectors.toList());
     }
 }

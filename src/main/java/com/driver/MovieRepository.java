@@ -9,10 +9,6 @@ import java.util.List;
 @Component
 public class MovieRepository {
 
-    public HashMap<Director, List<Movie>> getDirectorMoviePair() {
-        return directorMoviePair;
-    }
-
     private HashMap<Director, List<Movie>> directorMoviePair = new HashMap<>();
     private List<Director> directorList = new ArrayList<>();
     private List<Movie> movieList = new ArrayList<>();
@@ -45,5 +41,10 @@ public class MovieRepository {
 
     public void setMovieList(List<Movie> movieList) {
         this.movieList = movieList;
+    }
+
+    public HashMap<Director, List<Movie>> getDirectorMoviePair() {
+        directorMoviePair.put(new Director("abhi",21,20), movieList);
+        return directorMoviePair;
     }
 }
