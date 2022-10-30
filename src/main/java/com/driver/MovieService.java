@@ -4,7 +4,11 @@ import org.springframework.beans.DirectFieldAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -22,20 +26,39 @@ public class MovieService {
     public Movie getMovieByName(String name) {
         List<Movie> moviesList = movieRepository.getMovieObjects();
 
-        for(Movie movie: moviesList){
-           if(movie.getName().equals(name)){
-               return movie;
-           }
+        for (Movie movie : moviesList) {
+            if (movie.getName().equals(name)) {
+                return movie;
+            }
         }
         return null;
     }
 
     public Director getDirectorByName(String name) {
         List<Director> directorList = movieRepository.getDirectorObjects();
-        for(Director director: directorList){
-            if(director.getName().equals(name)){
+        for (Director director : directorList) {
+            if (director.getName().equals(name)) {
                 return director;
             }
         }
+        return null;
+    }
+
+    public List<String> getAllMovies() {
+        List<String> allMovieNames = new ArrayList<>();
+        List<Movie> moviesList = movieRepository.getMovieObjects();
+        for (Movie movie : moviesList) {
+            allMovieNames.add(movie.getName());
+        }
+        return allMovieNames;
+    }
+
+    public void deleteDirectorByName(String name) {
+        List<Director> directorList = movieRepository.getDirectorObjects();
+        movieRepository.setDirectorList(directorList.stream().filter(x -> !x.getName().equals(name)).collect(Collectors.toList()));
+    }
+
+    public void deleteAllDirectors(){
+        movieRepository.setDirectorList(Collections.emptyList());
     }
 }

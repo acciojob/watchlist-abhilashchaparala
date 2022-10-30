@@ -2,11 +2,13 @@ package com.driver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.PushBuilder;
 import javax.swing.plaf.PanelUI;
+import java.util.List;
 
 
 @RestController
@@ -40,5 +42,21 @@ public class MovieController {
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
+    @GetMapping("/movies/get-all-movies")
+    public ResponseEntity<List<String>> findAllMovies(){
+        List<String> result = movieService.getAllMovies();
+        return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
+    }
 
+    @DeleteMapping("/movies/delete-director-by-name")
+    public ResponseEntity<String> deleteDirectorByName(@RequestParam("name")String name){
+        movieService.deleteDirectorByName(name);
+        return new ResponseEntity<>("Success", HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/movies/delete-all-directors")
+    public ResponseEntity<String> deleteAllDirectors(){
+        movieService.deleteAllDirectors();
+        return new ResponseEntity<>("Success", HttpStatus.CREATED);
+    }
 }
