@@ -6,13 +6,14 @@ public class Movie {
 
     private int durationInMinutes;
 
-    public Movie(){
-    }
+
 
     public Movie(String name, double imdbRating, int durationInMinutes){
         this.name = name;
         this.imdbRating = imdbRating;
         this.durationInMinutes = durationInMinutes;
+    }
+    public Movie(){
     }
 
     public String getName() {
