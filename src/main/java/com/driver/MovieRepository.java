@@ -44,7 +44,7 @@ public class MovieRepository {
     }
 
     public HashMap<Director, List<Movie>> getDirectorMoviePair() {
-        directorMoviePair.put(new Director("abhi",21,20), movieList);
+//        directorMoviePair.put(new Director("abhi",21,20), movieList);
         return directorMoviePair;
     }
 }

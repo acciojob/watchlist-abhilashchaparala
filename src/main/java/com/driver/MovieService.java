@@ -56,6 +56,11 @@ public class MovieService {
     }
 
     public void deleteAllDirectors(){
+        List<Director> directorList = movieRepository.getDirectorObjects();
+//        directorList.stream().map(Director::getName).forEach(this::deleteAllMoviesOfDeletedDirector);
+        for(Director director:directorList){
+            deleteAllMoviesOfDeletedDirector(director.getName());
+        }
         movieRepository.setDirectorList(Collections.emptyList());
     }
 
@@ -67,12 +72,28 @@ public class MovieService {
             pairList.put(director,new ArrayList<>());
         }
         pairList.get(director).add(movie);
-
+        System.out.println(pairList);
     }
 
     public List<String> getMoviesByDirectorName(String directorName) {
         HashMap<Director,List<Movie>> pairList = movieRepository.getDirectorMoviePair();
         Director director = getDirectorByName(directorName);
         return pairList.get(director).stream().map(Movie::getName).collect(Collectors.toList());
+    }
+
+    public void deleteAllMoviesOfDeletedDirector(String directorName){
+        HashMap<Director,List<Movie>> pairList = movieRepository.getDirectorMoviePair();
+        List<Movie> movieList = movieRepository.getMovieObjects();
+
+        for(Director director: pairList.keySet()){
+            if(director.getName().equals(directorName)){
+                List<Movie> moviesToRemoved = pairList.get((director));
+                for(Movie movie:moviesToRemoved) {
+                    movieList.removeIf(movieInRepo -> movie.getName().equals(movieInRepo.getName()));
+                }
+                pairList.remove(director);
+            }
+        }
+
     }
 }
